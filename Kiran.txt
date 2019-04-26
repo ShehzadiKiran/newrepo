@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Extract_variables
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void extract_button_Click(object sender, RoutedEventArgs e)
+        {
+            String[] split_var = expression.Text.Split('+', '-', '/', '%', '^', '*', '=');
+            int value;
+            String a = "";
+            for (int i = 0; i < split_var.Length; i++)
+            {
+                if (int.TryParse(split_var[i], out value))
+                {
+                    split_var[i] = " ";
+                }
+            }
+
+            split_var = split_var.Where(s => s != " ").ToArray();
+            String[] variable = split_var.Distinct().ToArray();
+            for(int j = 0; j < variable.Length; j++)
+            {
+                a = a + variable[j] + " ";
+            }
+            var.Text = a;
+    }
+    }
+}
